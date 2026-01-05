@@ -92,6 +92,110 @@ Se for a primeira vez a fazer push, o GitHub pode pedir autenticação:
 
 Após o push, aceda ao seu repositório no GitHub e verifique se todos os arquivos foram enviados corretamente.
 
+## 👥 Partilhar o Repositório com Colaboradores
+
+Para permitir que o seu colega tenha acesso ao repositório e possa fazer alterações:
+
+### Método 1: Adicionar como Colaborador (Recomendado)
+
+1. **Aceda ao seu repositório no GitHub**
+2. Clique no separador **"Settings"** (Configurações) no topo do repositório
+3. No menu lateral esquerdo, clique em **"Collaborators"** (Colaboradores)
+4. Clique no botão **"Add people"** (Adicionar pessoas)
+5. Digite o **username do GitHub** ou **email** do seu colega
+6. Selecione o seu colega na lista de sugestões
+7. Escolha o nível de permissão:
+   - **Write**: Pode fazer push, criar branches, fazer pull requests (recomendado para trabalho em equipa)
+   - **Admin**: Acesso total, incluindo configurações (use com cuidado)
+8. Clique em **"Add [nome] to this repository"**
+
+### O que acontece depois:
+
+- O seu colega receberá um **email de convite** do GitHub
+- Ele precisa **aceitar o convite** clicando no link do email
+- Após aceitar, ele terá acesso ao repositório
+
+### Como o seu colega pode clonar o repositório:
+
+Após aceitar o convite, o seu colega pode clonar o repositório:
+
+```powershell
+git clone https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git
+cd NOME_DO_REPOSITORIO
+```
+
+**Exemplo:**
+```powershell
+git clone https://github.com/jorgecunha/tp-sd-gestao-filmes.git
+cd tp-sd-gestao-filmes
+```
+
+### Método 2: Repositório Público (Alternativa Simples)
+
+Se o repositório for **público**, qualquer pessoa pode:
+- Ver o código
+- Fazer fork (cópia)
+- Mas **não pode fazer push** diretamente (precisa ser colaborador)
+
+Para tornar público:
+1. Settings → General → scroll até "Danger Zone"
+2. Clique em "Change visibility" → "Make public"
+
+### Trabalho em Equipa - Boas Práticas
+
+#### 1. Usar Branches para Funcionalidades
+```powershell
+# Criar uma nova branch para uma funcionalidade
+git checkout -b feature/nova-funcionalidade
+
+# Fazer alterações e commit
+git add .
+git commit -m "Adiciona nova funcionalidade"
+git push origin feature/nova-funcionalidade
+```
+
+#### 2. Sincronizar com Alterações do Colega
+```powershell
+# Antes de começar a trabalhar, atualizar do repositório
+git pull origin main
+
+# Ou se estiver noutra branch
+git pull origin main
+```
+
+#### 3. Resolver Conflitos (se houver)
+Se ambos editarem o mesmo ficheiro:
+```powershell
+git pull origin main
+# Git mostrará os conflitos
+# Edite os ficheiros para resolver conflitos
+git add .
+git commit -m "Resolve conflitos"
+git push
+```
+
+#### 4. Ver quem fez o quê
+```powershell
+# Ver histórico de commits
+git log --oneline --graph --all
+
+# Ver alterações de um ficheiro
+git blame nome-do-ficheiro.js
+```
+
+### Verificar Colaboradores Atuais
+
+Para ver quem tem acesso ao repositório:
+1. Settings → Collaborators
+2. Verá a lista de todos os colaboradores e suas permissões
+
+### Remover um Colaborador
+
+Se precisar remover alguém:
+1. Settings → Collaborators
+2. Clique no ícone de engrenagem ao lado do nome
+3. Selecione "Remove [nome] from this repository"
+
 ## 📝 Comandos Úteis para o Futuro
 
 ### Verificar status
