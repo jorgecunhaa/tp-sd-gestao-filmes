@@ -3,23 +3,23 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.createTable('evaluations', (table) => {
+  return knex.schema.createTable('avaliacoes', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
-    table.uuid('user_id').notNullable();
-    table.uuid('movie_id').notNullable();
-    table.integer('rating').notNullable(); // Nota de 1 a 10 (validação feita na aplicação)
-    table.text('comment').nullable();
-    table.timestamps(true, true);
+    table.uuid('utilizador_id').notNullable();
+    table.uuid('filme_id').notNullable();
+    table.integer('nota').notNullable(); // Nota de 1 a 10 (validação feita na aplicação)
+    table.text('comentario').nullable();
+    table.timestamps(true, true); // criado_em, atualizado_em
     
     // Foreign Keys
-    table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
-    table.foreign('movie_id').references('id').inTable('movies').onDelete('CASCADE');
+    table.foreign('utilizador_id').references('id').inTable('utilizadores').onDelete('CASCADE');
+    table.foreign('filme_id').references('id').inTable('filmes').onDelete('CASCADE');
     
-    // Um usuário só pode avaliar o mesmo filme uma vez
-    table.unique(['user_id', 'movie_id']);
+    // Um utilizador só pode avaliar o mesmo filme uma vez
+    table.unique(['utilizador_id', 'filme_id']);
   }).then(() => {
     // Adicionar constraint check usando raw SQL
-    return knex.raw('ALTER TABLE evaluations ADD CONSTRAINT rating_check CHECK (rating >= 1 AND rating <= 10)');
+    return knex.raw('ALTER TABLE avaliacoes ADD CONSTRAINT nota_check CHECK (nota >= 1 AND nota <= 10)');
   });
 };
 
@@ -28,6 +28,6 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.schema.dropTable('evaluations');
+  return knex.schema.dropTable('avaliacoes');
 };
 

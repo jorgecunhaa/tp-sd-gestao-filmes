@@ -6,31 +6,31 @@ const crypto = require('crypto');
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('users').del();
+  await knex('utilizadores').del();
   
   // Função para criar hash SHA-256
   const hashPassword = (password) => {
     return crypto.createHash('sha256').update(password).digest('hex');
   };
   
-  await knex('users').insert([
+  await knex('utilizadores').insert([
     {
       id: '00000000-0000-0000-0000-000000000001',
       email: 'admin@example.com',
-      password: hashPassword('admin123'),
-      role: 'Admin'
+      senha: hashPassword('admin123'),
+      papel: 'Admin'
     },
     {
       id: '00000000-0000-0000-0000-000000000002',
       email: 'edit@example.com',
-      password: hashPassword('edit123'),
-      role: 'Edit'
+      senha: hashPassword('edit123'),
+      papel: 'Edit'
     },
     {
       id: '00000000-0000-0000-0000-000000000003',
       email: 'view@example.com',
-      password: hashPassword('view123'),
-      role: 'View'
+      senha: hashPassword('view123'),
+      papel: 'View'
     }
   ]);
 };
