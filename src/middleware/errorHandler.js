@@ -51,9 +51,13 @@ const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Erro interno do servidor';
   
+  // Não mostrar stack trace para erros de cliente (4xx) por segurança
+  const isClientError = statusCode >= 400 && statusCode < 500;
+  const showStack = !isClientError && process.env.NODE_ENV === 'development';
+  
   res.status(statusCode).json({
     error: message,
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+    ...(showStack && { stack: err.stack })
   });
 };
 

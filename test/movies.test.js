@@ -17,18 +17,20 @@ describe('Filmes', () => {
     // Criar utilizador de teste
     testUser = await User.create({
       email: 'movietest@example.com',
-      password: hashPassword('test123'),
-      role: 'Edit'
+      senha: hashPassword('test123'),
+      papel: 'Edit'
     });
     authToken = generateToken(testUser.id);
   });
 
   after(async () => {
     // Limpar dados de teste
-    if (testMovie) {
+    if (testMovie && testMovie.id) {
       await Movie.destroy({ where: { id: testMovie.id } });
     }
-    await User.destroy({ where: { id: testUser.id } });
+    if (testUser && testUser.id) {
+      await User.destroy({ where: { id: testUser.id } });
+    }
   });
 
   describe('POST /api/movies', () => {

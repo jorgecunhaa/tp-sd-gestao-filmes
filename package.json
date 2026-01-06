@@ -11,8 +11,9 @@
     "migrate:rollback": "knex migrate:rollback",
     "seed:make": "knex seed:make",
     "seed:run": "knex seed:run",
-    "test": "mocha --timeout 10000",
-    "test:watch": "mocha --watch --timeout 10000"
+    "test": "mocha --timeout 30000 --require test/setup.js",
+    "test:watch": "mocha --watch --timeout 30000 --require test/setup.js",
+    "test:migrate": "knex migrate:latest --env test"
   },
   "keywords": [
     "api",

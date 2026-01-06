@@ -42,7 +42,8 @@ const Evaluation = sequelize.define('Evaluation', {
 }, {
   tableName: 'avaliacoes',
   timestamps: true,
-  underscored: false,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
   indexes: [
     {
       unique: true,

@@ -18,28 +18,30 @@ describe('Avaliações', () => {
     // Criar utilizador de teste
     testUser = await User.create({
       email: 'evaltest@example.com',
-      password: hashPassword('test123'),
-      role: 'View'
+      senha: hashPassword('test123'),
+      papel: 'View'
     });
     authToken = generateToken(testUser.id);
 
     // Criar filme de teste
     testMovie = await Movie.create({
-      title: 'Evaluation Test Movie',
-      year: 2023,
-      genre: 'Drama'
+      titulo: 'Evaluation Test Movie',
+      ano: 2023,
+      genero: 'Drama'
     });
   });
 
   after(async () => {
     // Limpar dados de teste
-    if (testEvaluation) {
+    if (testEvaluation && testEvaluation.id) {
       await Evaluation.destroy({ where: { id: testEvaluation.id } });
     }
-    if (testMovie) {
+    if (testMovie && testMovie.id) {
       await Movie.destroy({ where: { id: testMovie.id } });
     }
-    await User.destroy({ where: { id: testUser.id } });
+    if (testUser && testUser.id) {
+      await User.destroy({ where: { id: testUser.id } });
+    }
   });
 
   describe('POST /api/movies/:id/evaluations', () => {

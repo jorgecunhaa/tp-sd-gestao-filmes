@@ -47,7 +47,8 @@ const Movie = sequelize.define('Movie', {
 }, {
   tableName: 'filmes',
   timestamps: true,
-  underscored: false
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 module.exports = Movie;

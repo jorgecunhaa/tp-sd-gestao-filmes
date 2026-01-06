@@ -12,8 +12,8 @@ describe('Autenticação', () => {
     // Criar utilizador de teste
     await User.create({
       email: 'test@example.com',
-      password: hashPassword('test123'),
-      role: 'View'
+      senha: hashPassword('test123'),
+      papel: 'View'
     });
   });
 

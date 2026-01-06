@@ -43,11 +43,16 @@ app.use((req, res) => {
 // Error Handler (deve ser o último middleware)
 app.use(errorHandler);
 
-// Iniciar servidor
+// Iniciar servidor (apenas se não estiver em modo de teste)
 const startServer = async () => {
   try {
     // Sincronizar modelos (apenas valida conexão)
     await syncModels();
+    
+    // Não iniciar servidor em modo de teste
+    if (process.env.NODE_ENV === 'test') {
+      return;
+    }
     
     app.listen(PORT, () => {
       console.log(`🚀 Servidor a correr na porta ${PORT}`);
@@ -60,7 +65,10 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// Só iniciar servidor se não estiver em modo de teste
+if (process.env.NODE_ENV !== 'test') {
+  startServer();
+}
 
 module.exports = app;
 

@@ -7,13 +7,17 @@ class AuthService {
     const user = await userService.getUserByEmail(email);
     
     if (!user) {
-      throw new Error('Credenciais inválidas');
+      const error = new Error('Credenciais inválidas');
+      error.statusCode = 401;
+      throw error;
     }
     
     const isPasswordValid = comparePassword(password, user.senha);
     
     if (!isPasswordValid) {
-      throw new Error('Credenciais inválidas');
+      const error = new Error('Credenciais inválidas');
+      error.statusCode = 401;
+      throw error;
     }
     
     const token = generateToken(user.id);
